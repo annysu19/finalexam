@@ -35,7 +35,7 @@ type Customers struct {
 	Status string `json:"status"`
 }
 
-var customer []Customers
+//var customer []Customers
 
 func (app MyApp) InsertCustomerHandler(c *gin.Context) {
 	var cs Customers
@@ -45,7 +45,7 @@ func (app MyApp) InsertCustomerHandler(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-
+	var customer []Customers
 	customer = append(customer, cs)
 
 	row := app.DB.QueryRow("INSERT INTO customer (name, email,status) values ($1, $2,$3) RETURNING id,name,email,status", cs.Name, cs.Email, cs.Status)
